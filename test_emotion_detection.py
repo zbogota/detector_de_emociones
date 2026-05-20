@@ -1,24 +1,33 @@
+import unittest
 from EmotionDetection import emotion_detector
 
-def test_emotion_detection():
 
-    test_sentences = {
-        "I am glad this happened": "joy",
-        "I am really mad about this": "anger",
-        "I feel disgusted just hearing about this": "disgust",
-        "I am so sad about this": "sadness",
-        "I am really afraid that this will happen": "fear"
-    }
+class TestEmotionDetector(unittest.TestCase):
+    """
+    Unit tests for emotion detection.
+    """
 
-    for sentence, expected_emotion in test_sentences.items():
+    def test_emotion_detection(self):
+        """
+        Test multiple sentences for expected dominant emotions.
+        """
 
-        response = emotion_detector(sentence)
+        test_cases = {
+            "I am glad this happened": "joy",
+            "I am really mad about this": "anger",
+            "I feel disgusted just hearing about this": "disgust",
+            "I am so sad about this": "sadness",
+            "I am really afraid that this will happen": "fear"
+        }
 
-        detected_emotion = response['dominant_emotion']
+        for sentence, expected_emotion in test_cases.items():
 
-        if detected_emotion == expected_emotion:
-            print("Passed")
-        else:
-            print("Failed")
+            response = emotion_detector(sentence)
 
-test_emotion_detection()
+            detected_emotion = response['dominant_emotion']
+
+            self.assertEqual(detected_emotion, expected_emotion)
+
+
+if __name__ == "__main__":
+    unittest.main()
